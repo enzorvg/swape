@@ -50,7 +50,7 @@ Un hook (`.claude/hooks/git-guard.sh`) bloque les violations git ; s'il te bloqu
 5. Le relecteur lance `/review` : tests indépendants commités en `test(review): …`, checklist, approve + auto-merge
    ou request changes. Il ne corrige jamais le code de l'auteur.
 6. L'auteur lance `/fix-review` : corrige sans modifier les tests du relecteur, répond à chaque commentaire.
-7. `/board` : état du sprint.
+7. `/board` : état du sprint. `/info` : ce qui t'attend et ta prochaine action (aussi sur « qu'est-ce que je dois faire ? »).
 
 ## 5. Définition de Done
 
