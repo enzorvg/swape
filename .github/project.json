@@ -1,0 +1,88 @@
+{
+  "_comment": "Generated in phase 4 of the setup. Read by scripts/board.sh. Regenerate if project fields change.",
+  "owner": "enzorvg",
+  "repo": "enzorvg/swape",
+  "projectNumber": 2,
+  "projectId": "PVT_kwHOBrpPiM4BpQnt",
+  "url": "https://github.com/users/enzorvg/projects/2",
+  "fields": {
+    "Status": {
+      "id": "PVTSSF_lAHOBrpPiM4BpQntzhntCsM",
+      "type": "SINGLE_SELECT",
+      "options": {
+        "Backlog": "14659760",
+        "Todo": "f17a4f5f",
+        "In Progress": "1fdda4a9",
+        "In Review": "be406a01",
+        "Done": "7d03f3f4",
+        "Blocked": "457d1e9a"
+      }
+    },
+    "Priority": {
+      "id": "PVTSSF_lAHOBrpPiM4BpQntzhntC-A",
+      "type": "SINGLE_SELECT",
+      "options": {
+        "P0": "21635e94",
+        "P1": "4ad53d56",
+        "P2": "5989fbfe"
+      }
+    },
+    "Size": {
+      "id": "PVTSSF_lAHOBrpPiM4BpQntzhntC-E",
+      "type": "SINGLE_SELECT",
+      "options": {
+        "S": "56d7f4a9",
+        "M": "df62ba23",
+        "L": "b8276608"
+      }
+    },
+    "Area": {
+      "id": "PVTSSF_lAHOBrpPiM4BpQntzhntC_Y",
+      "type": "SINGLE_SELECT",
+      "options": {
+        "api": "14bf7810",
+        "web": "ab1b1f4c",
+        "mobile": "2fbfb712",
+        "infra": "45fc36e2",
+        "docs": "9fddd3bb"
+      }
+    },
+    "Files": {
+      "id": "PVTF_lAHOBrpPiM4BpQntzhntDA4",
+      "type": "TEXT"
+    },
+    "Relecteur": {
+      "id": "PVTSSF_lAHOBrpPiM4BpQntzhntDGg",
+      "type": "SINGLE_SELECT",
+      "options": {
+        "enzorvg": "cad614f8",
+        "louisbdt": "3fcd9255",
+        "hugo-ry02": "b9e77e40"
+      }
+    },
+    "Sprint": {
+      "id": "PVTIF_lAHOBrpPiM4BpQntzhntDGo",
+      "type": "ITERATION",
+      "iterations": {
+        "Sprint 0": {
+          "id": "d23cae7e",
+          "startDate": "2026-11-02",
+          "duration": 14
+        },
+        "Sprint 1": {
+          "id": "fe6086c5",
+          "startDate": "2026-11-16",
+          "duration": 14
+        },
+        "Sprint 2": {
+          "id": "903b24c9",
+          "startDate": "2026-11-30",
+          "duration": 14
+        }
+      }
+    }
+  },
+  "aliases": {
+    "Reviewer": "Relecteur"
+  }
+}

@@ -34,7 +34,7 @@ Si elle ne l'est pas : **stop**, explique pourquoi.
 Pour chaque candidate, dans l'ordre :
 1. Dépendances : dans le corps (`gh issue view <n> --json body`), chaque « Bloquée par #N » doit être fermée
    (`gh issue view N --json state --jq .state` = `CLOSED`). Sinon, écarter.
-2. Fichiers : `scripts/board.sh conflicts <n>` liste les tickets `In Progress` / `In Review` d'**autres** membres
+2. Fichiers : `scripts/board.sh conflicts <n>` liste les **autres** tickets `In Progress` / `In Review` (tous membres confondus)
    dont le champ `Files` recoupe celui-ci. S'il y en a, écarter (et noter lequel bloque).
 3. Taille `L` : écarter, et proposer à l'humain de la découper.
 

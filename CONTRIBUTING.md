@@ -8,7 +8,8 @@ et les skills de `.claude/skills/` ; le cycle complet est schématisé dans [`do
 Tout se passe dans GitHub : Issues + Project « Swape — Board ».
 
 - **Statuts** : `Backlog` → `Todo` → `In Progress` → `In Review` → `Done` (+ `Blocked`).
-- **Champs** : `Priority` (P0/P1/P2), `Size` (S ≤ ½ j, M ≤ 2 j, L = à découper), `Area`, `Sprint`, `Reviewer`, `Files`.
+- **Champs** : `Priority` (P0/P1/P2), `Size` (S ≤ ½ j, M ≤ 2 j, L = à découper), `Area`, `Sprint` (itérations de 2 semaines),
+  `Relecteur` (« Reviewer » est un nom réservé par GitHub ; `board.sh` accepte les deux), `Files`.
 - `scripts/board.sh move|set|list|conflicts` évite de manipuler les IDs du Project (lit `.github/project.json`).
 
 Une issue est **prête** (`Todo`) quand elle a : un seul assigné, des critères « Étant donné / Quand / Alors »,
