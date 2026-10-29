@@ -1,0 +1,24 @@
+/* Swape design tokens for Tailwind CSS v4. Mirror of tokens.ts: keep both in sync. */
+@theme {
+  --color-primary: #00bf63;
+  --color-primary-soft: #4cd98b;
+  --color-primary-deep: #008c46;
+  --color-background: #f9f9f9;
+  --color-surface: #ffffff;
+  --color-text: #1e1e1e;
+  --color-text-muted: #6b6b6b;
+  --color-border: #e6e6e6;
+  --color-danger: #e5484d;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  --font-display: 'Gliker', 'Poppins', ui-rounded, system-ui, sans-serif;
+  --font-body: 'Poppins', system-ui, sans-serif;
+
+  --shadow-soft: 0 4px 20px rgba(30, 30, 30, 0.06);
+  --shadow-card: 0 8px 30px rgba(30, 30, 30, 0.08);
+}

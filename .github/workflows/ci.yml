@@ -1,0 +1,173 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# Job names `api`, `web`, `mobile`, `api-types` and `secrets` are required status checks
+# on main: do not rename them. Jobs not concerned by a PR are skipped (a skipped job
+# counts as passing), instead of using `on.paths`, which would leave checks pending.
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      api: ${{ steps.filter.outputs.api }}
+      web: ${{ steps.filter.outputs.web }}
+      mobile: ${{ steps.filter.outputs.mobile }}
+      api-types: ${{ steps.filter.outputs.api-types }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+      - id: filter
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            for area in api web mobile api-types; do echo "$area=true" >> "$GITHUB_OUTPUT"; done
+            exit 0
+          fi
+          changed=$(git diff --name-only "$BASE_SHA" HEAD)
+          echo "Changed files:"; echo "$changed"
+          match() { grep -qE "$1" <<<"$changed" && echo true || echo false; }
+          shared='^(\.github/workflows/|package\.json$|pnpm-lock\.yaml$|pnpm-workspace\.yaml$|packages/)'
+          {
+            echo "api=$(match '^(apps/api/|\.github/workflows/)')"
+            echo "web=$(match "^apps/web/|$shared")"
+            echo "mobile=$(match "^apps/mobile/|$shared")"
+            echo "api-types=$(match '^(apps/api/|packages/api-client/|\.github/workflows/)')"
+          } >> "$GITHUB_OUTPUT"
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Scan the whole git history for secrets (gitleaks)
+        run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.30.1 git /repo --redact --verbose
+
+  api:
+    needs: changes
+    if: needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    services:
+      postgres:
+        image: postgres:18.6-alpine
+        env:
+          POSTGRES_USER: swape
+          POSTGRES_PASSWORD: swape
+          POSTGRES_DB: swape
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U swape -d swape"
+          --health-interval 2s --health-timeout 3s --health-retries 20
+    env:
+      ENVIRONMENT: test
+      DATABASE_URL: postgresql+asyncpg://swape:swape@localhost:5432/swape
+      TEST_DATABASE_URL: postgresql+asyncpg://swape:swape@localhost:5432/swape_test
+      JWT_SECRET: ci-only-not-a-secret
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          enable-cache: true
+          cache-dependency-glob: apps/api/uv.lock
+      - run: uv sync --locked
+      - name: Create the test database
+        run: PGPASSWORD=swape psql -h localhost -U swape -d swape -c 'CREATE DATABASE swape_test'
+      - name: Ruff
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+      - name: Mypy (strict)
+        run: uv run mypy
+      - name: Alembic upgrade head
+        run: uv run alembic upgrade head
+      - name: Alembic has a single head
+        run: |
+          heads=$(uv run alembic heads | grep -c '(head)' || true)
+          echo "Alembic heads: $heads"
+          if [ "$heads" -gt 1 ]; then
+            uv run alembic heads
+            echo "::error::Several Alembic heads: rebase on main and recreate your migration on top of the latest one."
+            exit 1
+          fi
+      - name: Pytest (coverage >= 70%)
+        run: uv run pytest --cov --cov-report=term
+
+  web:
+    needs: changes
+    if: needs.changes.outputs.web == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.0
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Prettier
+        run: pnpm fmt:check
+      - name: Lint
+        run: pnpm --filter @swape/web --filter @swape/design-tokens --filter @swape/api-client run lint
+      - name: Typecheck
+        run: pnpm --filter @swape/web --filter @swape/design-tokens --filter @swape/api-client run typecheck
+      - name: Vitest
+        run: pnpm --filter @swape/web --filter @swape/design-tokens --filter @swape/api-client run test
+      - name: Build
+        run: pnpm --filter @swape/web build
+
+  mobile:
+    needs: changes
+    if: needs.changes.outputs.mobile == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.0
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm --filter @swape/mobile lint
+      - name: Typecheck
+        run: pnpm --filter @swape/mobile typecheck
+      - name: Jest
+        run: pnpm --filter @swape/mobile test --ci
+
+  api-types:
+    needs: changes
+    if: needs.changes.outputs.api-types == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          enable-cache: true
+          cache-dependency-glob: apps/api/uv.lock
+      - uses: pnpm/action-setup@v6.1.0
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: (cd apps/api && uv sync --locked)
+      - run: pnpm install --frozen-lockfile
+      - name: Generated API client is up to date
+        run: make api-types-check

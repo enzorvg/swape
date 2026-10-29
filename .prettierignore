@@ -1,0 +1,9 @@
+pnpm-lock.yaml
+**/dist
+**/coverage
+**/.expo
+**/playwright-report
+**/test-results
+apps/api
+docs/specs
+*.md

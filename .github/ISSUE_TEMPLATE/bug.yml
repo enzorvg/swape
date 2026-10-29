@@ -1,0 +1,51 @@
+name: Bug
+description: Un comportement incorrect à corriger.
+title: '[Bug] '
+labels: ['type:bug']
+body:
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportement attendu
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Comportement observé
+      description: Messages d'erreur, logs (sans donnée personnelle ni secret).
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Étapes de reproduction
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environnement
+      description: App (api / web / mobile), navigateur ou appareil, branche ou commit.
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Gravité
+      options:
+        - Bloquant (P0) — fonctionnalité principale ou sécurité / RGPD
+        - Majeur (P1) — contournement possible
+        - Mineur (P2) — gêne cosmétique
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Fichiers touchés (Files)
+      description: Si connus, les dossiers / fichiers probablement concernés.
+      render: text

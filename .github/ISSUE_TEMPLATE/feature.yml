@@ -1,0 +1,69 @@
+name: Fonctionnalité
+description: Une fonctionnalité utilisateur, découpée verticalement dans un domaine.
+title: '[Feature] '
+labels: ['type:feature']
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Contexte / besoin utilisateur
+      description: « En tant que … je veux … afin de … »
+      placeholder: En tant que recruteur, je veux archiver une offre afin qu'elle n'apparaisse plus aux candidats.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critères d'acceptation
+      description: Un critère par bloc, au format Étant donné / Quand / Alors. Inclure au moins un critère d'autorisation.
+      value: |
+        - [ ] **Étant donné** … **Quand** … **Alors** …
+        - [ ] **Étant donné** un utilisateur sans droit **Quand** … **Alors** l'API répond 403
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Zone
+      multiple: true
+      options: [api, web, mobile, infra, docs]
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Taille
+      description: S ≤ ½ journée, M ≤ 2 jours. Une tâche L doit être découpée avant d'être prête.
+      options: [S, M, L]
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dépendances
+      description: Une ligne « Bloquée par #N » par dépendance, ou « Aucune ».
+      placeholder: Bloquée par #12
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Fichiers touchés (Files)
+      description: Dossiers / fichiers que le ticket va créer ou modifier (globs). Deux tickets qui se recoupent ne peuvent pas être en cours en même temps.
+      placeholder: |
+        apps/api/app/offers/**
+        apps/api/tests/offers/**
+        apps/web/src/features/offers/**
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: mockup
+    attributes:
+      label: Maquette
+      description: Lien ou capture (facultatif).
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Hors périmètre
+      description: Ce que ce ticket ne fait volontairement pas.

@@ -1,0 +1,37 @@
+name: Tâche technique
+description: Outillage, infra, dette technique, dépendances, docs.
+title: '[Chore] '
+labels: ['type:chore']
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Objectif technique
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Critère de fin
+      description: Comment vérifier que c'est terminé (commande, comportement observable).
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Taille
+      options: [S, M, L]
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dépendances
+      placeholder: Bloquée par #N, ou « Aucune »
+  - type: textarea
+    id: files
+    attributes:
+      label: Fichiers touchés (Files)
+      render: text
+    validations:
+      required: true
