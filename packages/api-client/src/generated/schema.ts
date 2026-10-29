@@ -32,6 +32,8 @@ export interface components {
        * @constant
        */
       status: 'ok';
+      /** Version */
+      version: string;
     };
   };
   responses: never;

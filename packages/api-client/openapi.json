@@ -7,9 +7,13 @@
             "const": "ok",
             "title": "Status",
             "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
           }
         },
-        "required": ["status"],
+        "required": ["status", "version"],
         "title": "HealthResponse",
         "type": "object"
       }
