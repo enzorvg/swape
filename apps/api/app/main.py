@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app import __version__
 from app.core.config import get_settings
 from app.core.errors import register_error_handlers
 from app.core.logging import configure_logging
@@ -11,7 +12,7 @@ def create_app() -> FastAPI:
     configure_logging()
     settings = get_settings()
 
-    application = FastAPI(title="Swape API", version="0.1.0")
+    application = FastAPI(title="Swape API", version=__version__)
     application.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origins,
