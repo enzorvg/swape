@@ -15,7 +15,7 @@ concurrency:
 
 # Job names `api`, `web`, `mobile`, `api-types` and `secrets` are required status checks
 # on main: do not rename them. Jobs not concerned by a PR are skipped (a skipped job
-# counts as passing), instead of using `on.paths`, which would leave checks pending.
+# counts as passing), instead of using `on.paths`, which would leave required checks pending.
 
 jobs:
   changes:
