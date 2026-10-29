@@ -31,6 +31,7 @@ flowchart TD
 | Relire et tester | relecteur (rotation) | `/review [pr]` | |
 | Corriger | auteur | `/fix-review [pr]` | reste `In Review` |
 | Merger | auto-merge GitHub | — | `Done` (automatisation du Project) |
+| Savoir quoi faire | chacun | `/info` | |
 | Suivre | tous | `/board` | |
 
 ## Rotation de review

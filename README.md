@@ -43,6 +43,7 @@ make test         # toutes les suites
 4. Lancer `claude` à la racine du dépôt et accepter de faire confiance au dossier (active les permissions et hooks partagés).
 5. Taper `/next-task` : Claude propose ton prochain ticket, crée la branche et commente son plan.
 6. Quand c'est prêt : `/ship`. Pour relire la PR de ton binôme : `/review`. Après une demande de changements : `/fix-review`.
+   Perdu ? `/info` dit ce qui t'attend et quoi faire ensuite (`!info` ne marche pas : `!` lance une commande shell).
 
 Rotation de review : Hugo relit Enzo, Enzo relit Louis, Louis relit Hugo.
 
