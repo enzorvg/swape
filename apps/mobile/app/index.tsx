@@ -1,3 +1,3 @@
-import { HomeScreen } from '../src/features/home/HomeScreen';
+import { CandidateApp } from '../src/features/navigation/CandidateApp';
 
-export default HomeScreen;
+export default CandidateApp;
