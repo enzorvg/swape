@@ -40,6 +40,19 @@ describe('LandingPage (review #25)', () => {
     });
   });
 
+  it('never says that the company swipes, and promises no photo or signature', () => {
+    render(<LandingPage />);
+
+    const steps = screen
+      .getAllByRole('listitem')
+      .map((step) => step.textContent)
+      .join(' ');
+
+    expect(steps).not.toMatch(/entreprise swipe/i);
+    expect(steps).not.toMatch(/photo|signe\b/i);
+    expect(steps).toMatch(/entreprise accepte/i);
+  });
+
   it('illustrates every step', () => {
     render(<LandingPage />);
 
