@@ -6,4 +6,5 @@ pnpm-lock.yaml
 **/test-results
 apps/api
 docs/specs
+docs/mockups
 *.md
