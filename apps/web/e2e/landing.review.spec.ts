@@ -1,0 +1,56 @@
+import { expect, test } from '@playwright/test';
+
+const WIDTHS = [375, 320];
+
+for (const width of WIDTHS) {
+  test(`no horizontal scroll at ${String(width)} px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('/');
+
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    );
+
+    expect(overflow).toBeLessThanOrEqual(0);
+  });
+}
+
+test('no content is clipped at 375 px by the hidden overflow', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto('/');
+
+  const clipped = await page.evaluate(
+    () =>
+      [...document.querySelectorAll('main *')].filter((element) => {
+        const { left, right } = element.getBoundingClientRect();
+        return left < 0 || right > document.documentElement.clientWidth;
+      }).length,
+  );
+
+  expect(clipped).toBe(0);
+});
+
+test('the recruiter link stays visible at 375 px', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto('/');
+
+  await expect(page.getByRole('link', { name: /espace recruteur/i })).toBeVisible();
+});
+
+test('clicking the recruiter link reaches the login URL', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('link', { name: /espace recruteur/i }).click();
+
+  await expect(page).toHaveURL(/\/recruiter\/login$/);
+});
+
+test('the title uses the Gliker display font', async ({ page }) => {
+  await page.goto('/');
+
+  const family = await page
+    .getByRole('heading', { level: 1 })
+    .evaluate((element) => getComputedStyle(element).fontFamily);
+
+  expect(family).toMatch(/gliker/i);
+});
