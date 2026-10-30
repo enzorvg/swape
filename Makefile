@@ -5,7 +5,7 @@ UV := uv run --directory $(API)
 
 .DEFAULT_GOAL := help
 .PHONY: help setup dev dev-api dev-web dev-mobile test test-api test-js lint lint-api lint-js \
-        fmt fmt-api fmt-js db-up db-down db-migrate db-revision db-reset api-types api-types-check
+        fmt fmt-api fmt-js db-up db-down db-migrate db-revision db-reset db-seed api-types api-types-check
 
 help: ## Show this help
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -75,6 +75,9 @@ db-revision: ## Create a migration: make db-revision m="add offers table"
 db-reset: ## Drop and recreate the dev database, then migrate
 	docker compose down -v db
 	$(MAKE) db-migrate
+
+db-seed: db-migrate ## Fill the dev database with fictional demo data
+	$(UV) python -m scripts.seed
 
 api-types: ## Regenerate packages/api-client from the API's OpenAPI schema
 	$(UV) python -m scripts.export_openapi > packages/api-client/openapi.json
