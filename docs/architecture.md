@@ -56,8 +56,8 @@ qui code le front restent ainsi alignés.
 
 ## Modèle de données
 
-**À concevoir** (ticket du Sprint 0) : l'ancien MCD a été abandonné. Le nouveau MCD sera documenté ici,
-puis implémenté par le ticket « modèles + migration initiale ». Noms en anglais `snake_case` (voir le glossaire).
+Le MCD est décrit dans [`mcd.md`](mcd.md) : entités, relations, règle freemium et suppression en cascade (RGPD).
+Il est implémenté par le ticket « modèles + migration initiale ». Noms en anglais `snake_case` (voir le glossaire).
 
 ## Job Simulation
 
