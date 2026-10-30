@@ -2,8 +2,7 @@ const steps = [
   {
     number: '01',
     title: 'Crée ton profil en 90 secondes',
-    description:
-      'Une photo, deux phrases, tes compétences et le type de poste que tu cherches. Pas de CV à formater, Swape s’en charge.',
+    description: 'Tes infos, ton parcours, tes compétences et ton CV.',
     icon: <ProfileIcon />,
   },
   {
@@ -15,9 +14,9 @@ const steps = [
   },
   {
     number: '03',
-    title: 'Match, discute, signe',
+    title: 'Matche et discute',
     description:
-      'Si l’entreprise swipe aussi ton profil, c’est un match. Discute directement, planifie ton entretien, signe.',
+      'Si l’entreprise accepte ton profil, c’est un match. Discute directement avec le recruteur et planifie ton entretien.',
     icon: <ChatIcon />,
   },
 ];
@@ -126,7 +125,7 @@ export function LandingPage() {
         className="flex w-full max-w-4xl flex-col items-center gap-8"
       >
         <div className="flex flex-col items-center gap-3 text-center">
-          <span className="flex items-center gap-2 text-sm font-semibold text-primary">
+          <span className="flex items-center gap-2 text-sm font-semibold text-text">
             <span aria-hidden="true" className="h-2 w-2 rounded-full bg-primary" />
             Comment ça marche
           </span>
@@ -145,7 +144,7 @@ export function LandingPage() {
               key={step.number}
               className="flex flex-col items-center gap-3 rounded-xl bg-surface p-6 text-center shadow-card"
             >
-              <span className="font-display text-sm text-primary">{step.number}</span>
+              <span className="font-display text-sm text-text">{step.number}</span>
               {step.icon}
               <h3 className="font-display text-lg text-text">{step.title}</h3>
               <p className="text-sm text-text-muted">{step.description}</p>
@@ -156,7 +155,7 @@ export function LandingPage() {
 
       <a
         href="/recruiter/login"
-        className="rounded-full bg-primary px-6 py-3 font-display text-surface shadow-soft"
+        className="rounded-full bg-primary px-6 py-3 font-display text-text shadow-soft"
       >
         Espace recruteur
       </a>

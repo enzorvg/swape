@@ -22,7 +22,7 @@ describe('LandingPage', () => {
       screen.getByRole('heading', { level: 3, name: /Swipe les offres qui te parlent/ }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { level: 3, name: /Match, discute, signe/ }),
+      screen.getByRole('heading', { level: 3, name: /Matche et discute/ }),
     ).toBeInTheDocument();
   });
 
