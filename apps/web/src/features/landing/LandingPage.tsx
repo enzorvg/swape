@@ -125,7 +125,7 @@ export function LandingPage() {
         className="flex w-full max-w-4xl flex-col items-center gap-8"
       >
         <div className="flex flex-col items-center gap-3 text-center">
-          <span className="flex items-center gap-2 text-sm font-semibold text-text">
+          <span className="inline-flex items-center gap-2 rounded-full bg-primary-soft/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-text">
             <span aria-hidden="true" className="h-2 w-2 rounded-full bg-primary" />
             Comment ça marche
           </span>
@@ -142,12 +142,14 @@ export function LandingPage() {
           {steps.map((step) => (
             <li
               key={step.number}
-              className="flex flex-col items-center gap-3 rounded-xl bg-surface p-6 text-center shadow-card"
+              className="flex flex-col gap-3 rounded-xl bg-surface p-6 shadow-card"
             >
-              <span className="font-display text-sm text-text">{step.number}</span>
-              {step.icon}
+              <span className="font-display text-5xl text-primary-deep">{step.number}</span>
               <h3 className="font-display text-lg text-text">{step.title}</h3>
               <p className="text-sm text-text-muted">{step.description}</p>
+              <div className="mt-2 flex items-center justify-center rounded-lg bg-background p-4">
+                {step.icon}
+              </div>
             </li>
           ))}
         </ol>
