@@ -1,5 +1,3 @@
-import { ApiStatusIndicator } from '../status';
-
 const steps = [
   {
     number: '01',
@@ -118,7 +116,6 @@ export function LandingPage() {
   return (
     <main className="flex min-h-screen flex-col items-center gap-16 overflow-x-hidden p-8">
       <header className="flex flex-col items-center gap-4 pt-8 text-center">
-        <ApiStatusIndicator />
         <h1 className="font-display text-5xl text-primary">Swape</h1>
         <p className="text-text-muted">Le recrutement, en un swipe.</p>
       </header>
