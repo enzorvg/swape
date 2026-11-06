@@ -7,6 +7,7 @@ import { useAuth } from '../auth/AuthContext';
 import { LoginScreen } from '../auth/LoginScreen';
 import { ChatScreen } from '../chat/ChatScreen';
 import { ProfileScreen } from '../profile/ProfileScreen';
+import { ApiStatusIndicator } from '../status';
 import { SwipeScreen } from '../swipe/SwipeScreen';
 
 export type TabKey = 'swipe' | 'applications' | 'chat' | 'profile';
@@ -21,6 +22,9 @@ export function CandidateApp() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.statusContainer}>
+        <ApiStatusIndicator />
+      </View>
       <View style={styles.screenContainer}>
         {activeTab === 'swipe' && <SwipeScreen />}
         {activeTab === 'applications' && <ApplicationsScreen />}
@@ -94,6 +98,11 @@ export function CandidateApp() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background,
+  },
+  statusContainer: {
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.sm,
     backgroundColor: colors.background,
   },
   screenContainer: {
